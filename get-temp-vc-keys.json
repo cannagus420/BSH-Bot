@@ -1,0 +1,9 @@
+const lib = require('lib')({token: process.env.STDLIB_SECRET_TOKEN});
+console.log(await lib.utils.kv['@0.1.16'].entries());
+let result = await lib.utils.kv['@0.1.16'].get({  
+key: `tempVc_1028218015201886208`,});
+await lib.utils.kv['@0.1.16'].set({  
+key: `tempVc_1028218015201886208`,  
+value: {isTemp: true, 
+owner: `344531337174319106`}});
+console.log(JSON.stringify(result));

@@ -1,0 +1,658 @@
+const lib = require('lib')({token: process.env.STDLIB_SECRET_TOKEN});
+/*
+PLEASE READ
+
+If the commands dont show in discord it would be because your bot does not
+have permission to add commands. In order to fix this, remonvite your bot 
+with the link below (replace YOUR_BOT_ID with your bot id), then input your 
+guild_id on line 17 and 21. Finally click run!
+
+https://discord.com/oauth2/authorize?client_id=YOUR_BOT_ID&scope=identify%20bot%20applications.commands&permissions=8
+
+running this WILL clear any commands you have on the guild with this bot
+make sure to input the Guild ID on line 17 and 22!
+*/
+
+await lib.discord.commands.bulkOverwrite({
+  guild_id: `941700133702205491`,
+  commands: [],
+});
+
+await lib.discord.commands.bulkOverwrite({
+  guild_id:  `941700133702205491`,
+  commands: [
+    {
+      name: 'select-nodes',
+      description: 'Activate the desired Nodes for your server!',
+      options: [],
+    },
+    {
+      name: 'kick',
+      description: 'Kick a member from the server',
+      options: [
+        {
+          type: 6,
+          name: 'user',
+          description: 'The user to kick',
+          required: true,
+        },
+        {
+          type: 3,
+          name: 'reason',
+          description: 'The reason for Kicking the member',
+          required: false,
+        },
+      ],
+    },
+    {
+      name: 'ban',
+      description: 'Ban a member from the server',
+      options: [
+        {
+          type: 6,
+          name: 'user',
+          description: 'The user to ban',
+          required: true,
+        },
+        {
+          type: 4,
+          name: 'delete-days',
+          description:
+            'Delete message sent by this user in the past 0-7 days, defaults to 3.',
+          required: false,
+        },
+        {
+          type: 3,
+          name: 'reason',
+          description: 'The reason for Banning the member',
+          required: false,
+        },
+      ],
+    },
+    {
+      name: 'unban',
+      description: 'Unban a member from the server',
+      options: [
+        {
+          type: 6,
+          name: 'userid',
+          description: 'The ID of the user to unban',
+          required: true,
+        },
+        {
+          type: 3,
+          name: 'reason',
+          description: 'The reason for Banning the member',
+          required: false,
+        },
+      ],
+    },
+    {
+      name: 'softban',
+      description: 'Ban and immediantly unban a member from the server',
+      options: [
+        {
+          type: 6,
+          name: 'user',
+          description: 'The user to softban',
+          required: true,
+        },
+        {
+          type: 4,
+          name: 'delete-days',
+          description:
+            'Delete message sent by this user in the past 0-7 days, defaults to 3.',
+          required: false,
+        },
+        {
+          type: 3,
+          name: 'reason',
+          description: 'The reason for Softbanning the member',
+          required: false,
+        },
+      ],
+    },
+    {
+      name: 'lock',
+      description: 'Lock this Channel so @everyone cannot send messages',
+      options: [
+        {
+          type: 3,
+          name: 'message',
+          description:
+            'The message sent in this channel, usually explaining why the channel is being locked.',
+          required: false,
+        },
+      ],
+    },
+    {
+      name: 'unlock',
+      description: 'Unlock this Channel so @everyone can send messages',
+      options: [],
+    },
+    {
+      name: 'lockdown',
+      description:
+        'Lock all the channels in the lockdown list (/lockdown-set), in case of raids',
+      options: [
+        {
+          type: 3,
+          name: 'message',
+          description:
+            'The message sent in each channel, usually explaining why the channels have been locked.',
+          required: false,
+        },
+      ],
+    },
+    {
+      name: 'unlockdown',
+      description:
+        'Unlock all the channels in the lockdown list (/lockdown-set), in case of raids',
+      options: [],
+    },
+    {
+      name: 'setup-ticket',
+      description: 'Setup the Ticket System in this chat!',
+      options: [
+        {
+          type: 7,
+          name: 'archive-category',
+          description:
+            'Select the Category used to store the archived Tickets in.',
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'slowmode',
+      description: 'Set the slowmode of this channel',
+      options: [
+        {
+          type: 4,
+          name: 'seconds',
+          description: 'the number of seconds each user is ratelimited by.',
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'lockdown-set',
+      description: 'set which channels get locked during a lockdown',
+      options: [
+        {
+          type: 7,
+          name: 'channel1',
+          description: 'Select a channel to include in lockdowns',
+          required: true,
+        },
+        {
+          type: 7,
+          name: 'channel2',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel3',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel4',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel5',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel6',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel7',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel8',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel9',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel10',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel11',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel12',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel13',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel14',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel15',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel16',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel17',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel18',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel19',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel20',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel21',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel22',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel23',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+        {
+          type: 7,
+          name: 'channel24',
+          description: 'Select another channel to include in lockdowns',
+          required: false,
+        },
+      ],
+    },
+    {
+      name: 'purge',
+      description: 'Delete multiple messages in this channel',
+      options: [
+        {
+          type: 4,
+          name: 'amount',
+          description: 'the number of message to delete',
+          required: true,
+        },
+        {
+          type: 6,
+          name: 'user',
+          description: 'filter the purge to messages from this user',
+          required: false,
+        },
+      ],
+    },
+    {
+      name: 'poll',
+      description: 'Create a poll for users to have a vote',
+      options: [
+        {
+          type: 3,
+          name: 'message',
+          description: 'the number of message to delete',
+          required: true,
+        },
+        {
+          type: 3,
+          name: 'option1',
+          description: 'the first option',
+          required: true,
+        },
+        {
+          type: 3,
+          name: 'option2',
+          description: 'the second option',
+          required: true,
+        },
+        {
+          type: 3,
+          name: 'option3',
+          description: 'the third option',
+          required: false,
+        },
+        {
+          type: 3,
+          name: 'option4',
+          description: 'the forth option',
+          required: false,
+        },
+        {
+          type: 3,
+          name: 'option5',
+          description: 'the fifth option',
+          required: false,
+        },
+        {
+          type: 3,
+          name: 'option6',
+          description: 'the sixth option',
+          required: false,
+        },
+        {
+          type: 3,
+          name: 'option7',
+          description: 'the seventh option',
+          required: false,
+        },
+        {
+          type: 3,
+          name: 'option8',
+          description: 'the eighth option',
+          required: false,
+        },
+        {
+          type: 3,
+          name: 'option9',
+          description: 'the ninth option',
+          required: false,
+        },
+        {
+          type: 3,
+          name: 'option10',
+          description: 'the tenth option',
+          required: false,
+        },
+      ],
+    },
+    {
+      name: 'whois',
+      description: 'Get infomation about a user',
+      options: [
+        {
+          type: 6,
+          name: 'user',
+          description: 'user to retrieve info about',
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'roleinfo',
+      description: 'Get infomation about a role',
+      options: [
+        {
+          type: 8,
+          name: 'role',
+          description: 'role to retrieve info about',
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'timeout',
+      description: 'Mute a user for a certain amount of seconds',
+      options: [
+        {
+          type: 6,
+          name: 'user',
+          description: 'User to mute',
+          required: true,
+        },
+        {
+          type: 3,
+          name: 'seconds',
+          description:
+            'How many senconds to be muted for (up to 28 days, 2419200 seconds)',
+          required: true,
+        },
+        {
+          type: 3,
+          name: 'reason',
+          description: 'Provide a reason for the Timeout',
+        },
+      ],
+    },
+    {
+      name: 'untimeout',
+      description: "Remove a user's timeout",
+      options: [
+        {
+          type: 6,
+          name: 'user',
+          description: 'User to mute',
+          required: true,
+        },
+        {
+          type: 3,
+          name: 'reason',
+          description: 'Provide a reason for the Timeout',
+        },
+      ],
+    },
+    {
+      name: 'serverinfo',
+      description: 'Get info about this sever',
+      options: [],
+    },
+    {
+      name: 'defineword',
+      description: 'Get the definition of an english word',
+      options: [
+        {
+          type: 3,
+          name: 'word',
+          description: 'The word to look up',
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'mute',
+      description:
+        'Permanently Timout a member in the server, will reset timeout every week to 2419200 seconds (28days)',
+      options: [
+        {
+          type: 6,
+          name: 'user',
+          description: 'The user to Mute',
+          required: true,
+        },
+        {
+          type: 3,
+          name: 'reason',
+          description: 'The reason for Muting the member',
+          required: false,
+        },
+      ],
+    },
+    {
+      name: 'unmute',
+      description: "Remove a User's Permanent Timeout",
+      options: [
+        {
+          type: 6,
+          name: 'user',
+          description: 'The user to Unmute',
+          required: true,
+        },
+        {
+          type: 3,
+          name: 'reason',
+          description: 'The reason for Muting the member',
+          required: false,
+        },
+      ],
+    },
+    {
+      name: 'timezone-set',
+      description: 'Set the TimeZone used for logging commands',
+      options: [
+        {
+          type: 3,
+          name: 'timezone',
+          description:
+            'Format as Country_Name/City_Name make sure there are no spaces.',
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'timezone-list',
+      description: 'Retrieve a list of all avalible TimeZones',
+      options: [
+        {
+          type: 3,
+          name: 'search-word',
+          description: 'Only show timezones including this word.',
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'lockdown-list',
+      description: 'Retrieve a list of all channels included in lockdowns',
+      options: [],
+    },
+    {
+      name: 'help',
+      description: 'Learn how to use Easy Advanced Moderation!',
+      options: [],
+    },
+    {
+      name: 'warn',
+      description: 'Warn a member from the server',
+      options: [
+        {
+          type: 6,
+          name: 'user',
+          description: 'The user to warn',
+          required: true,
+        },
+        {
+          type: 3,
+          name: 'reason',
+          description: 'The reason for warning the member',
+          required: false,
+        },
+      ],
+    },
+    {
+      name: 'warn-list',
+      description: 'Get warns of a member from the server',
+      options: [
+        {
+          type: 6,
+          name: 'user',
+          description: 'The user to warn',
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'warn-clear',
+      description: 'Clears warns from a member from the server',
+      options: [
+        {
+          type: 6,
+          name: 'user',
+          description: 'The user to clear warns of',
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'warn-remove',
+      description: 'Remove a warn from a member',
+      options: [
+        {
+          type: 6,
+          name: 'user',
+          description: 'The user to remove a warn from',
+          required: true,
+        },
+        {
+          type: 4,
+          name: 'warn_id',
+          description: 'The id next to the warn in /warn-list',
+          required: true,
+        },
+      ],
+    },
+    {
+    name: 'avatar',
+      description: 'Retrieve the Avatar of a member',
+      options: [
+        {
+          type: 6,
+          name: 'user',
+          description: 'The user to get the avatar of',
+          required: true,
+        },
+      ],
+    },
+     {
+      name: 'banner',
+      description: 'Retrieve the Banner of a member',
+      options: [
+        {
+          type: 6,
+          name: 'user',
+          description: 'The user to get the banner of',
+          required: true,
+        },
+      ],
+    },
+  ],
+});
+
